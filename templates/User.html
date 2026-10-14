@@ -1,0 +1,37 @@
+{% include "header.html" %}
+<div class="mt-5 pt-4 ">
+<div class="d-flex justify-content-center ">
+    <a class="text-decoration-none fw-bold fs-2 border border-secondary border-3 p-2 mt-2 rounded-5" 
+    href="{{ url_for('addd') }}">ADD NEW CAFE</a>
+</div>
+<section class=" border border-3 m-4 border-secondary rounded-5">
+<div class="container ">
+    <h1 class="d-flex justify-content-center mt-3">Your Entries</h1>
+    {% for infos in info %}
+    <section id="scroll">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="p-5"><img class="img-fluid rounded-circle" src="{{ infos.img_url }}" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="p-5 border border-3 rounded-5">
+                            <h2 class="display-4">{{ infos.name }}.</h2>
+                            <a class="text-decoration-none fw-bold" href="{{ infos.map_url }}"> Map Location <span class="fw-bold text-danger">-{{ infos.location }}</span></a>
+                            <span class="container">
+                                <div><span class="fw-bold">Seats:</span> {{ infos.seats}}</div>
+                                <div><span class="fw-bold">Coffe Price:</span> {{ infos.coffee_price }}</div>
+                                <div class="mt-1"><a class="text-decoration-none fw-bold fs-3 border border-3 border-secondary ps-2 pe-2 rounded-5" 
+                                    href="{{ url_for('update',cafe_send=infos.id) }}">Update</a></div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+        {% endfor %}
+</div>
+</section>
+
+{% include "footer.html" %}

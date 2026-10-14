@@ -1,0 +1,190 @@
+{% include "header.html" %}
+{% include "home.html" %}
+        <!-- Content section 1-->
+        {% for infos in info %}
+        {% if infos.id%2==0 %}
+        <section id="scroll">
+            <div class="container px-5 mt-3 mb-3">
+                <div class="row gx-5 align-items-center border border-3 rounded-5">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="p-5"><img class="img-fluid rounded-circle" src="{{ infos.img_url }}" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="p-5 border border-3 rounded-5 mt-1 mb-1">
+                            <h2 class="display-4">{{ infos.name }}.</h2>
+                            <a class="text-decoration-none fw-bold" href="{{ infos.map_url }}"> Map Location <span class="fw-bold text-danger">-{{ infos.location }}</span></a>
+                            <span class="container">
+                                <div><span class="fw-bold">Seats:</span> {{ infos.seats}}</div>
+                                <div><span class="fw-bold">Coffe Price:</span> {{ infos.coffee_price }}</div>
+                                <div>
+                                    <p class="fw-bold fs-4">Posted by- {{ infos.m_user.Name }}</p>
+                                    </div>
+                                <div class="cafe-stars" data-cafe-id="{{ infos.id }}">
+                                    {% set ns = namespace(total=0) %}
+                                    {% for a in infos.rating_id %}
+                                        {% set ns.total = ns.total + a.ratting %}
+                                    {% endfor %}
+                                    {% if infos.rating_id | length > 0 %}
+                                        {% for b in  range(1,6) %}
+                                        {% if (ns.total / (infos.rating_id | length | round )) | int >= b %}
+                                        <span class="fs-3 text-warning">★</span>
+                                        {% else %}
+                                        <span class="fs-3 text-warning">☆</span>
+                                        {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        No ratings yet
+                                    {% endif %}</div>
+                                    
+<div>
+    <label for="quantity-{{ infos.id }}" class="form-label">Rate</label>
+
+    <form class="rating-form"
+          action="{{ url_for('rasting', cafe_id=infos.id) }}"
+          method="post">
+
+        <select class="form-select w-25"
+                id="quantity-{{ infos.id }}"
+                name="quantity"
+                required>
+            <option value="" selected disabled>Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+    </form>
+</div>
+
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Content section 2-->
+         {% else %}
+        <section>
+            <div class="container px-5 mt-3 mb-3">
+                <div class="row gx-5 align-items-center border border-3 rounded-5">
+                    <div class="col-lg-6 ">
+                        <div class="p-5"><img class="img-fluid rounded-circle" src="{{ infos.img_url }}" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-6 ">
+                        <div class="p-5 border border-3 rounded-5 mt-1 mb-1">
+                            <h2 class="display-4">{{ infos.name }}.</h2>
+                            <a class="text-decoration-none fw-bold" href="{{ infos.map_url }}"> Map Location <span class="fw-bold text-danger">-{{ infos.location }}</span></a>
+                            <span class="container">
+                                <div><span class="fw-bold">Seats:</span> {{ infos.seats}}</div>
+                                <div><span class="fw-bold">Coffe Price:</span> {{ infos.coffee_price }}</div>
+                                <div>
+                                    <p class="fw-bold fs-4">Posted by- {{ infos.m_user.Name }}</p>
+                                    </div>
+                                <div class="cafe-stars" data-cafe-id="{{ infos.id }}">
+                                    {% set ns = namespace(total=0) %}
+                                    {% for a in infos.rating_id %}
+                                        {% set ns.total = ns.total + a.ratting %}
+                                    {% endfor %}
+                                    {% if infos.rating_id | length > 0 %}
+                                        {% for b in  range(1,6) %}
+                                        {% if (ns.total / (infos.rating_id | length | round )) | int >= b %}
+                                        <span class="fs-3 text-warning">★</span>
+                                        {% else %}
+                                        <span class="fs-3 text-warning">☆</span>
+                                        {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        No ratings yet
+                                    {% endif %}</div>
+                                    
+<div>
+    <label for="quantity-{{ infos.id }}" class="form-label">Rate</label>
+
+    <form class="rating-form"
+          action="{{ url_for('rasting', cafe_id=infos.id) }}"
+          method="post">
+
+        <select class="form-select w-25"
+                id="quantity-{{ infos.id }}"
+                name="quantity"
+                required>
+            <option value="" selected disabled>Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+    </form>
+</div>
+
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        {% endfor %}
+        
+<script>
+
+document.querySelectorAll(".rating-form").forEach(form => {
+    const select = form.querySelector('select[name="quantity"]');
+
+    select.addEventListener("change", async function () {
+        if (!select.value) return;
+
+        select.disabled = true;
+
+        try {
+            const formData = new FormData();
+            formData.append("quantity", select.value);
+
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                alert(data.error || "Rating save nahi hui.");
+                return;
+            }
+
+            // Isi cafe ke stars find karo
+            const stars = document.querySelector(
+                `.cafe-stars[data-cafe-id="${form.action.split("/").pop()}"]`
+            );
+
+            if (stars) {
+                stars.innerHTML = "";
+
+                const average = data.average;
+
+                for (let i = 1; i <= 5; i++) {
+                    const star = document.createElement("span");
+                    star.className = "fs-3 text-warning";
+                    star.textContent = i <= average ? "★" : "☆";
+                    stars.appendChild(star);
+                }
+            }
+
+            console.log("Rating saved and stars updated!");
+
+        } catch (error) {
+            console.error(error);
+            alert("Rating save nahi hui.");
+        } finally {
+            select.disabled = false;
+        }
+    });
+});
+
+</script>
+
+{% include "footer.html" %}

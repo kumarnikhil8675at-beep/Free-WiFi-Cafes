@@ -1,0 +1,25 @@
+{% include "header.html" %}
+{% from "Bootstrap5/form.html" import render_form %}
+<div class="mt-5 pt-4">
+    <div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <iframe
+                src="https://lottie.host/embed/9be5eb1e-659a-4c77-afbd-2ebb3790c902/qZ8bf2byDo.lottie"
+                class="w-100 border-0"
+                style="height: 300px;"
+                title="Lottie Animation">
+            </iframe>
+        </div>
+    </div>
+</div>
+<section class="d-flex justify-content-center align-items-center">
+<div class="container border border-3 m-4 border-secondary rounded-5">
+    <h1 class="d-flex justify-content-center mt-3">LOGIN</h1>
+    <div class="row m-4">
+     {{ render_form(form) }}
+    </div>
+</div>
+</section></div>
+
+{% include "footer.html" %}

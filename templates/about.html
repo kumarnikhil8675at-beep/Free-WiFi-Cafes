@@ -1,0 +1,93 @@
+{% include "header.html" %}
+
+<section class="container py-5 my-5">
+    <div class="row align-items-center g-5">
+
+        <!-- About Content -->
+        <div class="col-12 col-md-6">
+            <h1 class="fw-bold text-primary mb-3">About Us</h1>
+
+            <h3 class="fw-semibold mb-3">
+                Discover Your Perfect Cafe
+            </h3>
+
+            <p class="text-secondary">
+                Welcome to our Cafe Finder! Our goal is to help you
+                discover cafes where you can enjoy great coffee,
+                get your work done, or spend quality time with friends.
+            </p>
+
+            <p class="text-secondary">
+                Whether you are looking for free Wi-Fi, comfortable
+                seating, charging sockets, or a peaceful place to work,
+                our website helps you find a cafe that suits your needs.
+            </p>
+
+            <p class="text-secondary">
+                You can explore cafes, check their facilities, view
+                their locations, and share your ratings to help other
+                coffee lovers make better choices.
+            </p>
+
+            <a href="{{ url_for('home') }}"
+               class="btn btn-primary mt-3">
+                Explore Cafes
+            </a>
+        </div>
+
+        <!-- About Image / Animation -->
+        <div class="col-12 col-md-6 text-center">
+            <div class="bg-light rounded-4 p-4">
+                <div class="display-1 mb-3">☕</div>
+                <h4 class="fw-bold">Coffee. Comfort. Community.</h4>
+                <p class="text-secondary mb-0">
+                    Find a place that feels right for you.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Features -->
+    <div class="text-center mt-5 pt-4">
+        <h2 class="fw-bold mb-4">What We Offer</h2>
+
+        <div class="row g-4">
+
+            <div class="col-12 col-md-4">
+                <div class="card h-100 border-0 shadow-lg p-4">
+                    <div class="fs-1 mb-2">📍</div>
+                    <h5 class="fw-bold">Discover Cafes</h5>
+                    <p class="text-secondary mb-0">
+                        Find cafes and explore their locations.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="card h-100 border-0 shadow-lg p-4">
+                    <div class="fs-1 mb-2">💻</div>
+                    <h5 class="fw-bold">Check Facilities</h5>
+                    <p class="text-secondary mb-0">
+                        Find places with Wi-Fi, sockets, and
+                        comfortable seating.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="card h-100 border-0 shadow-lg p-4">
+                    <div class="fs-1 mb-2">⭐</div>
+                    <h5 class="fw-bold">Rate Cafes</h5>
+                    <p class="text-secondary mb-0">
+                        Share your ratings and help others
+                        choose their next cafe.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% include "footer.html" %}
