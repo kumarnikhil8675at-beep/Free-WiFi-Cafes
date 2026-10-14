@@ -5,6 +5,7 @@ from functools import wraps
 from flask_login import current_user,login_user,LoginManager,logout_user
 from form import cafe_form,Sign,login
 from werkzeug.security import check_password_hash,generate_password_hash
+import os
 
 app=Flask(__name__)
 bootstrap=Bootstrap5(app)
@@ -12,8 +13,8 @@ bootstrap=Bootstrap5(app)
 login_manager=LoginManager()
 login_manager.init_app(app)
 
-app.config['SQLALCHEMY_DATABASE_URI']= "sqlite:///cafes.db"
-app.config['SECRET_KEY'] = "dfdshfkjhshfjdhkjsfas"
+app.config['SQLALCHEMY_DATABASE_URI']= os.environ.get("DB_URI","sqlite:///cafes.db")
+app.config['SECRET_KEY'] = "rerraertrtre4aewertafdfsz"
 
 db.init_app(app)
 
